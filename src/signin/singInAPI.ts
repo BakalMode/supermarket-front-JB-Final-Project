@@ -1,9 +1,12 @@
 import axios from 'axios'
 
-export function register(user: any) {
-    console.log(user);
-    return new Promise<{ data: any }>((resolve) =>
-        axios.post("http://127.0.0.1:8000/register/", user).then(res => resolve({ data: res.data }))
-    );
-}
+let MY_SERVER = "http://127.0.0.1:8000/"
 
+export function login(user: any) {
+    return new Promise<{ data: any }>((resolve, reject) =>
+      axios
+        .post(MY_SERVER + "login", user)
+        .then((response) => resolve({ data: response.data }))
+        .catch((error) => reject(error))
+    );
+  }

@@ -11,7 +11,12 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { createTheme, hexToRgb, hslToRgb, rgbToHex, ThemeProvider } from '@mui/material/styles';
+import { useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { loginAsync, selectLogged } from './signInSlicer';
+import { useNavigate} from 'react-router-dom';
+
 
 function Copyright(props: any) {
   return (
@@ -30,19 +35,55 @@ function Copyright(props: any) {
 const defaultTheme = createTheme();
 
 export function SignIn() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+  const dispatch = useAppDispatch();
+  const logged = useAppSelector(selectLogged);
+  const [email, setemail] = useState("")
+  const [password, setpassword] = useState("")
+  const navigate = useNavigate();
+
+const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
+  const data = new FormData(event.currentTarget);
+  console.log({
+    email: data.get('email'),
+    password: data.get('password'),
+  });
+
+  try {
+    // Simulate an asynchronous request to send data
+    await sendData(data);
+    
+  } catch (error) {
+    // Handle any error that occurred during the data submission
+    console.error('Error occurred:', error);
+  }
+};
+
+const sendData = (data: FormData): Promise<void> => {
+  return new Promise((resolve, reject) => {
+    // Simulate a delay before resolving the promise
+    setTimeout(() => {
+      // Perform your actual data submission logic here
+      // For example, make an API call or submit the form to a server
+
+      // If the submission is successful, resolve the promise
+      resolve();
+      // If an error occurs during submission, reject the promise
+      // reject(new Error('Failed to submit data.'));
+    }, 100); // Simulating a 2-second delay before resolving the promise
+  });
+};
+  const onSubmit = () => {
+    dispatch(loginAsync({ email, password })).then(() => {
+      navigate.caller('http://localhost:3000'); // Redirect to the desired URL (e.g., http://localhost:3000/)
     });
   };
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
+      <div style={{ backgroundColor: '#d4f1c5', position: 'fixed', top: 0, bottom: 0, left: 0, right: 0 }}>
+        <div style={{ backgroundColor: '#fff', margin: 'auto', maxWidth: '600px', padding: '20px', minHeight: '100vh', boxShadow: '0px 0px 10px 5px rgba(0, 0, 0, 0.1)' }}>
+          <Container component="main" maxWidth="xs">       <CssBaseline />
         <Box
           sx={{
             marginTop: 8,
@@ -67,7 +108,9 @@ export function SignIn() {
               name="email"
               autoComplete="email"
               autoFocus
-            />
+              value={email}
+              onChange={(e) => setemail(e.target.value)}
+              />
             <TextField
               margin="normal"
               required
@@ -77,6 +120,8 @@ export function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              value={password}
+              onChange={(e) => setpassword(e.target.value)}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -86,13 +131,15 @@ export function SignIn() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 2,bgcolor: "rgb(34,126,71)",'&:hover': { bgcolor:'rgb(59, 151, 98)' } }}
+              onClick={onSubmit}
+              
             >
               Sign In
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link href="/forgotpassword" variant="body2">
                   Forgot password?
                 </Link>
               </Grid>
@@ -106,6 +153,8 @@ export function SignIn() {
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
+      </div>
+      </div>
     </ThemeProvider>
   );
 }

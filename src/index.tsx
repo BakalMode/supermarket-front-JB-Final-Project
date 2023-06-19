@@ -9,6 +9,9 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { SignIn } from './signin/SignIn';
 import SignUp from './signup/Signup';
 import Checkout from './checkout/Checkout';
+import ProfilePage from './profilePage/ProfilePage';
+import ForgotPassword from './forgotPassword/ForgotPassword';
+import ResetPassword from './resetpassword/ResetPassword';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
@@ -22,6 +25,11 @@ root.render(
          <Route path='/login' Component={SignIn} />
          <Route path='/signup' Component={SignUp} /> 
          <Route path='/checkout' Component={Checkout} />
+         <Route path='/profile' Component={ProfilePage} />
+         <Route path='/forgotpassword' Component={ForgotPassword} />
+         <Route path='/resetpassword' Component={ResetPassword} />
+
+
       </Routes>
       </BrowserRouter>
       

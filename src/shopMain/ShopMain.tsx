@@ -31,7 +31,8 @@ export function ShopMain() {
         {products.map((prod, ind) => <div key={ind}>
         {/* <AutoPlaySwipeableViewsSlicer></AutoPlaySwipeableViewsSlicer> */}
         <div className="card" style={{backgroundColor:"Window",marginBottom:"10px"}}> 
-          <img src="product-image.jpg" alt="Product Image" className="product-image" /> 
+          <img src={prod.image} alt="Product Image" className="product-image" />
+          <div>{prod.image}</div>
           <div className="product-description">   
             <p className="product-name">{prod.name}</p> 
             <p className="product-price">${prod.price}</p> 

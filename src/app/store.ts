@@ -5,6 +5,9 @@ import checkoutReducer from '../checkout/checkoutSlicer';
 import paymentFormReducer from '../checkout/paymentFormSlicer';
 import reviewFormReducer,{ reviewFormSlice } from '../checkout/reviewSlicer';
 import navbarReducer, { navbarSlice } from '../features/navbar/navbarSlicer';
+import forgotPasswordReducer from '../forgotPassword/forgotPasswordSlicer';
+import profilePageReducer from '../profilePage/profilePageSlicer';
+import resetPasswordReducer from '../resetpassword/resetPasswordSlicer';
 import appbarReducer,{ appbarSlice } from '../searchAppBar/searchAppBarSlicer';
 import shopMainReducer, { shopMainSlice } from '../shopMain/shopMainSlicer';
 import signInReducer from '../signin/signInSlicer';
@@ -23,7 +26,10 @@ export const store = configureStore({
     addressform:addressFromReducer,
     checkout: checkoutReducer,
     paymentForm:paymentFormReducer,
-    reviewForm:reviewFormReducer
+    reviewForm:reviewFormReducer,
+    profile:profilePageReducer,
+    forgot:forgotPasswordReducer,
+    reset: resetPasswordReducer,
 
     
   },
