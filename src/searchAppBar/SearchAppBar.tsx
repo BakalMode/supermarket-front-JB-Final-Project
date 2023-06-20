@@ -11,10 +11,11 @@ import SearchIcon from '@mui/icons-material/Search';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import { Storefront, Person, ExitToApp } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux'; // Import the `useSelector` hook
+import { useDispatch, useSelector } from 'react-redux';
 import { selectLogged } from '../signin/signInSlicer';
 import { logout } from '../signin/signInSlicer';
-
+import { useState } from 'react';
+import { filterProducts } from '../shopMain/shopMainSlicer';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -46,7 +47,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create('width'),
     width: '100%',
@@ -62,14 +62,20 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function SearchAppBar() {
   const isLogged = useSelector(selectLogged);
   const dispatch = useDispatch();
+  const [searchbar, setSearchbar] = useState('');
 
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setSearchbar(value);
+    dispatch(filterProducts(value));
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
         position="sticky"
         sx={{
-          width: '1390px',
+          width: '1020px',
           paddingBottom: '21px',
           position: 'fixed',
           overflowX: 'hidden',
@@ -90,7 +96,6 @@ export default function SearchAppBar() {
           >
             Shimoni's Shop
           </Typography>
-          {/* Render different buttons based on the logged state */}
           {isLogged ? (
             <>
               <button
@@ -155,7 +160,7 @@ export default function SearchAppBar() {
                 to="login"
                 style={{ textDecoration: 'none', color: 'black' }}
               >
-                Login/Register
+                Sign in / Sign up
               </Link>
             </button>
           )}
@@ -166,6 +171,7 @@ export default function SearchAppBar() {
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
+              onChange={handleSearchChange}
             />
           </Search>
           <IconButton

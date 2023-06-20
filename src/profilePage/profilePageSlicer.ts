@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { editProfile } from './profilePageAPI';
+import { editProfile, getCustomerData } from './profilePageAPI';
 
 export interface ProfileState {
   logged: boolean;
@@ -18,6 +18,15 @@ export const editProfileAsync = createAsyncThunk(
       return response.data;
     }
   );
+
+export const getCustomerDataAsync = createAsyncThunk(
+  'profile/fetchCustomer',
+  async () => {
+    const response = await getCustomerData();
+    console.log(response.data);
+    return response.data;
+  }
+);
 
 export const profileSlice = createSlice({
   name: 'profile',

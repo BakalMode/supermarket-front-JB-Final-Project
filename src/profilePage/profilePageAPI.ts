@@ -9,3 +9,10 @@ export function editProfile(userChanges: any) {
     return axios.patch(`${MY_SERVER}editprofile`, {userChanges,Authorization: `Bearer ${token}`})
   
 }
+
+export function getCustomerData() {
+
+    return new Promise<{data:any}>((resolve) =>
+        axios.get(MY_SERVER+'getcustomer').then(res => resolve({data: res.data}))
+    )
+}

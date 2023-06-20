@@ -1,12 +1,38 @@
+
+.page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #d4f1c5; /* Set the desired background color for the page */
+}
+
+.pagecard {
+  background-color: white;
+  padding: 20px;
+  width: 80%; /* Adjust the width as desired */
+  max-width: 800px; /* Adjust the maximum width as desired */
+  height: 95vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 0;
+  margin-bottom: 0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a shadow to the corners */
+}
+
 .profile-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    text-align: center;
-    transform: translateY(-65px); 
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-grow: 1;
+  margin-top: auto; /* Push the content to the top */
+  margin-bottom: auto;
+  
+}
+
   
   .profile-form {
     display: grid;

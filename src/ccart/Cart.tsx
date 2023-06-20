@@ -1,35 +1,59 @@
-import React, { useState } from 'react';
-import { useAppSelector, useAppDispatch } from '.././app/hooks';
+import React from 'react';
+import { useAppSelector } from '../app/hooks';
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
-import {
-  decrement,
-  increment,
-  incrementByAmount,
-  incrementAsync,
-  incrementIfOdd,
-  selectCount,
-} from './cartSlicer';
 import { Link } from 'react-router-dom';
+import { selectCartItems } from './cartSlicer';
+import { Product } from '../shopMain/shopMainSlicer';
+import { CartItem } from './CartItem';
 
-export function Cart() {
-  const count = useAppSelector(selectCount);
-  const dispatch = useAppDispatch();
-  const [incrementAmount, setIncrementAmount] = useState('2');
+interface CartProps {
+  products: Product[];
+  quantities: { [productId: number]: number };
+}
 
-  const incrementValue = Number(incrementAmount) || 0;
+export function Cart({ products, quantities }: CartProps) {
+  const cartItems = useAppSelector(selectCartItems);
 
   return (
-    <div style={{width:"335px",backgroundColor:" #227e47", position:"fixed", top:0, bottom:0,left:0,maxWidth: "335px",padding:"10px",overflowY: 'auto',whiteSpace: 'pre-wrap',wordWrap: 'break-word'}}>
-      <div>
-      <LocalGroceryStoreIcon/><h3>Cart</h3> 
-   <div style={{backgroundColor:"#FFFF",height:"800px",borderRadius:'7px'}}>
-    ddsada
-   </div>
-   <button className="button" style={{ backgroundColor: "white", color: "black", border: "none", padding: "2px 20px",marginTop:"19px", borderRadius: "4px", boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", transition: "background-color 0.3s" }}>
-            <Link to="checkout" style={{ textDecoration: "none", color:"black"}}><div>Checkout</div><ShoppingCartCheckoutIcon/></Link></button>
+    <div
+      style={{
+        width: '335px',
+        backgroundColor: ' #227e47',
+        position: 'fixed',
+        top: 90,
+        bottom: 0,
+        left: 0,
+        maxWidth: '335px',
+        padding: '10px',
+        overflowY: 'auto',
+        whiteSpace: 'pre-wrap',
+        wordWrap: 'break-word',
+      }}
+    >
+      <div className="cart-container">
+        <div className="cart-header">
+          <LocalGroceryStoreIcon />
+          <h3>Cart</h3>
+        </div>
+        <div className="cart-content">
+          {cartItems.length === 0 ? (
+            <p>No items in the cart</p>
+          ) : (
+            <ul className="cart-items">
+              {cartItems.map((item) => (
+                <CartItem key={item.product.id} item={item.product} quantity={item.quantity} />
+              ))}
+            </ul>
+          )}
+        </div>
+        <button className="button">
+          <Link to="checkout" style={{ textDecoration: 'none', color: 'black' }}>
+            <div>Checkout</div>
+            <ShoppingCartCheckoutIcon />
+          </Link>
+        </button>
       </div>
     </div>
   );
 }
-
