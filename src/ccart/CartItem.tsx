@@ -28,12 +28,13 @@ export function CartItem({ item, quantity }: CartItemProps) {
     <div className="cart-item">
       <div className="cart-item-info">
         <span>{item.name}</span>
-        <span>Quantity: {quantity}</span>
+        
       </div>
       <div className="cart-quantity-controls">
         <button className="cart-minus-btn" onClick={handleDecrement}>
           -
         </button>
+        <span>{quantity}</span>
         <button className="cart-plus-btn" onClick={handleIncrement}>
           +
         </button>

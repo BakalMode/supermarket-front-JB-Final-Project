@@ -46,11 +46,8 @@ export const signinSlice = createSlice({
         }
       })
       .addCase(loginAsync.rejected, (state, action) => {
-        if (!action.payload) {
-          alert('Both email and password fields are required.');
-        } else {
+
           alert('Wrong email or password.');
-        }
       });
   },
 });
@@ -58,3 +55,5 @@ export const signinSlice = createSlice({
 export const { logout } = signinSlice.actions;
 export const selectLogged = (state: RootState) => state.signin.logged;
 export default signinSlice.reducer;
+
+

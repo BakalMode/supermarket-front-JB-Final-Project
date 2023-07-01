@@ -22,8 +22,8 @@ function Copyright(props: any) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      <Link color="inherit" href="/"> 
+        FreshBuy
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -75,7 +75,6 @@ const sendData = (data: FormData): Promise<void> => {
 };
   const onSubmit = () => {
     dispatch(loginAsync({ email, password })).then(() => {
-      navigate.caller('http://localhost:3000'); // Redirect to the desired URL (e.g., http://localhost:3000/)
     });
   };
 
@@ -86,7 +85,7 @@ const sendData = (data: FormData): Promise<void> => {
           <Container component="main" maxWidth="xs">       <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 14,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -123,10 +122,6 @@ const sendData = (data: FormData): Promise<void> => {
               value={password}
               onChange={(e) => setpassword(e.target.value)}
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
             <Button
               type="submit"
               fullWidth
@@ -148,6 +143,9 @@ const sendData = (data: FormData): Promise<void> => {
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
+              <Link href="/" variant="body2" style={{marginTop:"20px",paddingLeft:'120px'}}>
+                  Back to the shop page
+                </Link>
             </Grid>
           </Box>
         </Box>

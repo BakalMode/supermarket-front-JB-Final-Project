@@ -8,15 +8,26 @@ import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-import StorefrontIcon from '@mui/icons-material/Storefront';
-import { Storefront, Person, ExitToApp } from '@mui/icons-material';
+import { Storefront, Person, ExitToApp, Margin } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectLogged } from '../signin/signInSlicer';
 import { logout } from '../signin/signInSlicer';
-import { useState } from 'react';
-import { filterProducts } from '../shopMain/shopMainSlicer';
+import { filterProducts, filterProductsByCategory } from '../shopMain/shopMainSlicer';
+import FreshBuyLogo from '../images/FreshBuyLogo.jpeg'
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+
+
+const LogoImage = styled('img')({
+  maxHeight: '20%',
+  maxWidth: '25%',
+  marginTop: '20px',
+  marginLeft: '-23.83px'
+});
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -59,10 +70,22 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+const StyledMenuItem = styled(MenuItem)({
+  fontSize: '1.4rem',
+  border: '1px solid #5BA448',
+  padding: '12px',
+  margin: '4px',
+  background:"white"
+});
+
 export default function SearchAppBar() {
   const isLogged = useSelector(selectLogged);
   const dispatch = useDispatch();
   const [searchbar, setSearchbar] = useState('');
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [categories, setCategories] = useState<string[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState('');
+
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
@@ -70,31 +93,58 @@ export default function SearchAppBar() {
     dispatch(filterProducts(value));
   };
 
+  const handleMenuOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = (category: string) => {
+    if (category === 'All Products') {
+      setSelectedCategory(category);
+      dispatch(filterProducts('')); // Empty search term to display all products
+    } else if (categories.includes(category)) {
+      setSelectedCategory(category);
+      dispatch(filterProductsByCategory(category));
+    }
+    setAnchorEl(null);
+  };
+
+  useEffect(() => {
+    axios.get('http://127.0.0.1:8000/menu')
+      .then(response => {
+        setCategories(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+    const selectedCategory = sessionStorage.getItem('selectedCategory');
+    if (selectedCategory) {
+      setSelectedCategory(selectedCategory);
+    }
+  }, []);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
-        position="sticky"
         sx={{
-          width: '1020px',
+          maxHeight: '90px',
           paddingBottom: '21px',
-          position: 'fixed',
-          overflowX: 'hidden',
           overflowY: 'auto',
-          whiteSpace: 'pre-wrap',
-          wordWrap: 'break-word',
+          position: 'fixed',
+          top: 0,
         }}
+
       >
         <Toolbar>
+          <LogoImage sx={{ minHeight: '100px', maxHeight: '90px', minWidth: '200px', marginBottom: '9px' }} src={FreshBuyLogo} alt="FreshBuy Logo" />
           <Typography
-            variant="h5"
             noWrap
             component="div"
             sx={{
               flexGrow: 1,
-              display: { xs: 'none', sm: 'block', marginTop: '25px' },
+              display: { xs: 'none', sm: 'block' },
             }}
           >
-            Shimoni's Shop
           </Typography>
           {isLogged ? (
             <>
@@ -130,7 +180,6 @@ export default function SearchAppBar() {
                   borderRadius: '4px',
                   boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
                   transition: 'background-color 0.3s',
-                  
                 }}
                 onClick={() => dispatch(logout())}
               >
@@ -180,11 +229,44 @@ export default function SearchAppBar() {
             color="inherit"
             aria-label="open drawer"
             sx={{ mr: -2.6, ml: 0, mt: 2.6 }}
+            onClick={handleMenuOpen}
           >
             <Storefront />
           </IconButton>
+              
+          <Menu
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleMenuClose}
+          >
+             <div style={{backgroundColor:"#5BA448",marginTop:"-24px",marginBottom:"-12px",textAlign:"center"}}><p style={{color:"yellow"}}>* Categories *</p>
+             <StyledMenuItem
+        style={{ borderRadius: '8px'}}
+        onMouseEnter={(e) => (e.target as HTMLElement).style.backgroundColor = '#f7f0c5'}
+        onMouseLeave={(e) => (e.target as HTMLElement).style.backgroundColor = ''}
+        onClick={() => handleMenuClose('All Products')}
+      >
+              All Products
+            </StyledMenuItem>
+
+            {categories.map(category => (
+              <StyledMenuItem
+                key={category}
+                style={{borderRadius:'8px'}}
+                onMouseEnter={(e) => ((e.target as HTMLElement).style.backgroundColor = '#d4f1c5')}
+                onMouseLeave={(e) => ((e.target as HTMLElement).style.backgroundColor = '')}
+                onClick={() => handleMenuClose(category)}
+              >
+                {category}
+              </StyledMenuItem>
+            ))}
+            <div style={{padding:"4px"}}></div>
+            </div>
+          </Menu>
         </Toolbar>
       </AppBar>
     </Box>
   );
 }
+
+

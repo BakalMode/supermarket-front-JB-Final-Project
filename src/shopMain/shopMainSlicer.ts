@@ -13,6 +13,8 @@ export interface Product {
   name: string;
   price: number;
   image: any;
+  category: string;
+  category_name: string; 
 }
 
 const initialState: ProductState = {
@@ -33,7 +35,7 @@ export const fetchProductsAsync = createAsyncThunk(
 export const shopMainSlice = createSlice({
   name: 'shopMain',
   initialState,
-  reducers: {
+  reducers: { // ask the teacher about reducer and tell him how i used mine
     filterProducts: (state, action: PayloadAction<string>) => {
       const searchTerm = action.payload;
       if (searchTerm.trim() === '') {
@@ -41,6 +43,18 @@ export const shopMainSlice = createSlice({
       } else {
         const filteredProducts = state.products.filter((product) =>
           product.name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        state.filteredProducts = filteredProducts;
+      }
+    },
+    filterProductsByCategory: (state, action: PayloadAction<string>) => {
+      const category = action.payload;
+
+      if (category.trim() === '') {
+        state.filteredProducts = state.products;
+      } else {
+        const filteredProducts = state.products.filter((product) =>
+          product.category_name == (category)
         );
         state.filteredProducts = filteredProducts;
       }
@@ -63,7 +77,7 @@ export const shopMainSlice = createSlice({
   },
 });
 
-export const { filterProducts } = shopMainSlice.actions;
+export const { filterProducts,filterProductsByCategory } = shopMainSlice.actions;
 
 export const selectProducts = (state: RootState) => state.shopMain.products;
 

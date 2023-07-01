@@ -10,9 +10,16 @@ export function editProfile(userChanges: any) {
   
 }
 
-export function getCustomerData() {
+export async function getCustomerData() {
+    const token = sessionStorage.getItem('token') || '';
+    console.log(token)
+    const res = await axios.post(`${MY_SERVER}getcustomer`, {
+       
+            Authorization: `Bearer ${token}`
 
-    return new Promise<{data:any}>((resolve) =>
-        axios.get(MY_SERVER+'getcustomer').then(res => resolve({data: res.data}))
-    )
-}
+    });
+    return ({ data: res.data });
+  }
+
+
+// add back to the main page button !!!!!!!!!

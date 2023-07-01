@@ -1,11 +1,19 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
-import { TextField, Button, Avatar } from '@mui/material';
+import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
+import { TextField, Button, Avatar, Link } from '@mui/material';
 import { PhotoCamera } from '@mui/icons-material';
 import './profilePage.css'; // Import the CSS file for styling
-import { editProfileAsync } from './profilePageSlicer';
+import { editProfileAsync, getCustomerDataAsync } from './profilePageSlicer';
 import { useAppDispatch } from '../app/hooks';
+import { getCustomerData } from './profilePageAPI';
+import { log } from 'console';
 
 const ProfilePage = () => {
+  const [addresslabel, setAddresslabel] = useState('');
+  const [citylabel, setCitylabel] = useState('');
+  const [firstNamelabel, setFirstNamelabel] = useState('');
+  const [lastNamelabel, setLastNamelabel] = useState('');
+  const [emaillabel, setEmaillabel] = useState('');
+  const [selectedImagelabel, setSelectedImagelabel] = useState<string | undefined>(undefined);
   const [address, setAddress] = useState('');
   const [city, setCity] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -14,6 +22,29 @@ const ProfilePage = () => {
   const [password, setPassword] = useState('');
   const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const fetchCustomerData = async () => {
+      try {
+        const response = await dispatch(getCustomerDataAsync());
+        const customerData = response.payload; // Access the payload property
+        console.log(customerData);
+        // Set the customer data as initial values for input fields
+        setAddresslabel(customerData.address);
+        setCitylabel(customerData.city);
+        setFirstNamelabel(customerData.firstName);
+        setLastNamelabel(customerData.lastName);
+        setEmaillabel(customerData.email);
+        setSelectedImagelabel(customerData.image)
+        console.log(customerData.image)
+
+      } catch (error) {
+        console.log('Error fetching customer data:', error);
+      }
+    };
+  
+    fetchCustomerData();
+  }, []);
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -52,10 +83,12 @@ const ProfilePage = () => {
     <div className="page-container" style={{ backgroundColor: '#d4f1c5' }}>
       <div className="pagecard">
         <div className="profile-container">
-          <h1>Mi pinche perfil</h1>
+          <h1 style={{marginTop:'-40px'}}>Profile Page</h1>
+          <h4 style={{marginBottom:'40px',paddingLeft:'20px',paddingRight:'20px'}}>here you can edit your personal information please be careful when updating the email/password as they are essential for entering your account.</h4>
           <form onSubmit={handleSubmit} className="profile-form">
             <div className="avatar-container">
-              <Avatar src={selectedImage} alt="Profile Picture" sx={{ width: 200, height: 200 }} className="avatar" />
+              <Avatar src={selectedImage} alt="Profile Picture" sx={{ width: 200, height: 200 }} className="avatar" /> 
+              {/* {`http://127.0.0.1:8000${selectedImagelabel}`}  */}
               {selectedImage && (
                 <Button variant="contained" onClick={handleRemoveImage}>
                   Remove Image
@@ -84,7 +117,7 @@ const ProfilePage = () => {
               </label>
               <TextField
                 id="first-name-input"
-                label="First Name"
+                label={firstNamelabel}
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
               />
@@ -93,7 +126,7 @@ const ProfilePage = () => {
               </label>
               <TextField
                 id="last-name-input"
-                label="Last Name"
+                label={lastNamelabel}
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
               />
@@ -105,7 +138,7 @@ const ProfilePage = () => {
               </label>
               <TextField
                 id="email-input"
-                label="Email"
+                label={emaillabel}
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -115,7 +148,7 @@ const ProfilePage = () => {
               </label>
               <TextField
                 id="password-input"
-                label="Password"
+                label="*******"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -128,7 +161,7 @@ const ProfilePage = () => {
               </label>
               <TextField
                 id="address-input"
-                label="Address"
+                label={addresslabel}
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
               />
@@ -138,12 +171,15 @@ const ProfilePage = () => {
               <label htmlFor="city-input" style={{ margin: '-10px', paddingRight: '160px' }}>
                 City:
               </label>
-              <TextField id="city-input" label="City" value={city} onChange={(e) => setCity(e.target.value)} />
+              <TextField id="city-input" label={citylabel} value={city} onChange={(e) => setCity(e.target.value)} />
             </div>
 
             <Button type="submit" variant="contained" color="primary" className="submit-button">
               Save Changes
             </Button>
+            <Link href="/" variant="body2" style={{marginTop:"20px"}}>
+                  Back to the shop page
+                </Link>
           </form>
         </div>
       </div>
@@ -151,4 +187,6 @@ const ProfilePage = () => {
   );
 };
 
-export default ProfilePage;
+export default ProfilePage; 
+
+// fix edges of the screen when scolling 

@@ -34,7 +34,6 @@ export const signupSlice = createSlice({
   extraReducers: (builder) => {
     builder
         .addCase( registerAsync.rejected, (state, action) => {  
-            console.log('aaaaaaaaaaaaaaaaaaaa')  
             alert("please fill all of the fields")
           });
 },

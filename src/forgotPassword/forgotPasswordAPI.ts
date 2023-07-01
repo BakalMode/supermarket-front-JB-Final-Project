@@ -19,7 +19,7 @@ export function getCustomersPassword(email: any) { //  getting the password in o
       .then((res) => resolve({ data: res.data }))
       .catch((error) => {
         console.log(error);
-        alert("Failed to send email.");
+        alert("This email is not linked with any account.");
         reject(error); // Reject the promise with the error
       })
   );
