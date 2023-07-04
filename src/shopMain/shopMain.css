@@ -33,6 +33,7 @@
 
 .quantity {
   margin: 0 10px;
+  margin-bottom: -20px;
 }
 
 .buy-btn {
@@ -43,10 +44,10 @@
   font-size: 13px;
   font-weight:bold;
   padding: 8px 16px;
-  margin-top: auto;
   cursor: pointer;
   margin-left: 5px;
   color: black;
+  margin-top: 4px;
 }
 
 .minus-btn,
@@ -63,6 +64,7 @@
   background-color: white;
   color: #5BA448;
   cursor: pointer;
+  margin-bottom: -20px;
 }
 
 .minus-btn{
@@ -104,3 +106,4 @@
   height: 1000px;
   margin-top: 100px;
 }
+

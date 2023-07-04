@@ -12,6 +12,7 @@ import Checkout from './checkout/Checkout';
 import ProfilePage from './profilePage/ProfilePage';
 import ForgotPassword from './forgotPassword/ForgotPassword';
 import ResetPassword from './resetpassword/ResetPassword';
+import { MoreInfoPage } from './MoreInfoPage/MoreInfoPage';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
@@ -28,7 +29,7 @@ root.render(
          <Route path='/profile' Component={ProfilePage} />
          <Route path='/forgotpassword' Component={ForgotPassword} />
          <Route path='/resetpassword' Component={ResetPassword} />
-
+         <Route path='/moreinfo/:productId' Component={MoreInfoPage} />
 
       </Routes>
       </BrowserRouter>

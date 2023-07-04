@@ -5,6 +5,8 @@ import SearchAppBar from '../searchAppBar/SearchAppBar';
 import './shopMain.css'; // Import the CSS file
 import { fetchProductsAsync, filterProducts, selectProducts } from './shopMainSlicer';
 import { addToCart } from '../ccart/cartSlicer';
+import { Link } from '@mui/material';
+
 
 
 export function ShopMain() {
@@ -120,7 +122,7 @@ export function ShopMain() {
                 key={product.id}
                 style={{ margin: '5px', flex: '0 0 250px', textAlign: 'center', }}
               >
-                <img src={"http://127.0.0.1:8000"+product.image} alt="Product Image" className="product-image" />
+                <img src={"http://127.0.0.1:8000" + product.image} alt="Product Image" className="product-image" />
                 <div className="product-description">
                   <p className="product-name">{product.name}</p>
                   <p className="product-price">${product.price}</p>
@@ -141,13 +143,15 @@ export function ShopMain() {
                   >
                     +
                   </button>
-                  <button
+                  <div><Link href={`/moreinfo/${product.id}`} color="primary">
+                    More info
+                  </Link><br /><button
                     className="buy-btn"
                     onClick={() => handleBuyButtonClick(product)}
                     disabled={!quantities[product.id]}
                   >
-                    Add to cart
-                  </button>
+                      Add to cart
+                    </button></div>
                 </div>
               </div>
             ))}

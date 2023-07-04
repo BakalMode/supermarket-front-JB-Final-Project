@@ -29,15 +29,21 @@ const ProfilePage = () => {
         const response = await dispatch(getCustomerDataAsync());
         const customerData = response.payload; // Access the payload property
         console.log(customerData);
+  
         // Set the customer data as initial values for input fields
         setAddresslabel(customerData.address);
         setCitylabel(customerData.city);
         setFirstNamelabel(customerData.firstName);
         setLastNamelabel(customerData.lastName);
         setEmaillabel(customerData.email);
-        setSelectedImagelabel(customerData.image)
+        setSelectedImagelabel("http://127.0.0.1:8000/" + customerData.image);
         console.log(customerData.image)
-
+  
+        // Set the selectedImage state
+        if (customerData.image) {
+          setSelectedImage("http://127.0.0.1:8000/" + customerData.image);
+          console.log(selectedImage)
+        }
       } catch (error) {
         console.log('Error fetching customer data:', error);
       }
@@ -45,6 +51,7 @@ const ProfilePage = () => {
   
     fetchCustomerData();
   }, []);
+
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -80,10 +87,10 @@ const ProfilePage = () => {
   };
 
   return (
-    <div className="page-container" style={{ backgroundColor: '#d4f1c5' }}>
+    <div className="page-container">
       <div className="pagecard">
         <div className="profile-container">
-          <h1 style={{marginTop:'-40px'}}>Profile Page</h1>
+          <h1>Profile Page</h1>
           <h4 style={{marginBottom:'40px',paddingLeft:'20px',paddingRight:'20px'}}>here you can edit your personal information please be careful when updating the email/password as they are essential for entering your account.</h4>
           <form onSubmit={handleSubmit} className="profile-form">
             <div className="avatar-container">
