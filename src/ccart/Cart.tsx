@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '../app/hooks';
-import { decrementQuantity, incrementQuantity, removeFromCart, selectCartItems } from './cartSlicer';
+import { decrementQuantity, incrementQuantity, removeFromCart, selectCartItems, selectCartTotal } from './cartSlicer';
 import { Product } from '../shopMain/shopMainSlicer';
 import './cartItem.css';
-import './cart.css'
+import './cart.css';
 
 interface CartProps {
   products: Product[];
@@ -16,13 +16,18 @@ interface CartProps {
 
 export function Cart({ products, quantities }: CartProps) {
   const cartItems = useAppSelector(selectCartItems);
+  const cartTotal = useAppSelector(selectCartTotal);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cartItems));
+  }, [cartItems]);
 
   // Calculate the total price of all items in the cart
   const totalPrice = cartItems.reduce((total, item) => {
     const product = products.find(p => p.id === item.product.id);
     if (product) {
-      return total + product.price * item.quantity;
+      return total + product.price *item.quantity;
     }
     return total;
   }, 0);
@@ -62,11 +67,11 @@ export function Cart({ products, quantities }: CartProps) {
               {cartItems.map((item) => (
                 <div className="cart-item" key={item.product.id}>
                   <div className="cart-item-info">
-                  <img style={{maxHeight:"77px"}} src={"http://127.0.0.1:8000"+item.product.image} alt="Product Image" className="product-image" />
+                    <img style={{ maxHeight: "77px" }} src={"http://127.0.0.1:8000" + item.product.image} alt="Product Image" className="product-image" />
                   </div>
-  
+
                   <div className="cart-quantity-controls">
-                  <p>
+                    <p>
                       {item.product.name} - ${(item.product.price * item.quantity).toFixed(2)}
                     </p>
                     <button className="cart-minus-btn" onClick={() => handleDecrement(item.product.id)}>
@@ -87,7 +92,7 @@ export function Cart({ products, quantities }: CartProps) {
         </div>
       </div>
       <div className="cart-footer">
-        <h3 style={{ margin: '0px',marginTop:'3px' }}>Total: ${totalPrice.toFixed(2)}</h3>
+        <h3 style={{ margin: '0px', marginTop: '3px' }}>Total: ${totalPrice.toFixed(2)}</h3>
         <button className="cart-button">
           <Link to="checkout" style={{ textDecoration: 'none', color: 'white' }}>
             Checkout
@@ -97,7 +102,4 @@ export function Cart({ products, quantities }: CartProps) {
       </div>
     </div>
   );
-  
-  
-  
 }

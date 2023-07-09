@@ -8,6 +8,8 @@
     "@emotion/styled": "11.11.0",
     "@mui/icons-material": "5.11.16",
     "@mui/material": "5.11.16",
+    "@paypal/paypal-js": "^6.0.0",
+    "@paypal/react-paypal-js": "^8.1.0",
     "@types/react-router-dom": "^5.3.3",
     "axios": "1.4.0",
     "react": "18.2.0",

@@ -1,11 +1,52 @@
-import * as React from 'react';
+import React, { useState, useEffect, ChangeEvent } from 'react';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 
 export default function PaymentForm() {
+  const [cardName, setCardName] = useState('');
+  const [cardNumber, setCardNumber] = useState('');
+  const [expDate, setExpDate] = useState('');
+  const [cvv, setCvv] = useState('');
+  const [cardType, setCardType] = useState('');
+
+  useEffect(() => {
+    sessionStorage.setItem(
+      'CCI',
+      JSON.stringify({ cardName, cardNumber, expDate, cvv, cardType })
+    );
+  }, [cardName, cardNumber, expDate, cvv, cardType]);
+
+  const handleCardNameChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setCardName(event.target.value);
+  };
+
+  const handleCardNumberChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setCardNumber(event.target.value);
+  };
+
+  const handleExpDateChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setExpDate(event.target.value);
+  };
+
+  const handleCvvChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setCvv(event.target.value);
+  };
+
+  const handleCardTypeChange = (event: ChangeEvent<{ value: unknown }>) => {
+    setCardType(event.target.value as string);
+  };
+
+  React.useEffect(() => { // this use effect is for security reasons
+    window.onbeforeunload = () => {
+      sessionStorage.setItem('CCI', '{}');
+    };
+
+    return () => {
+      window.onbeforeunload = null;
+    };
+  }, []);
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -20,6 +61,8 @@ export default function PaymentForm() {
             fullWidth
             autoComplete="cc-name"
             variant="standard"
+            value={cardName}
+            onChange={handleCardNameChange}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -30,6 +73,8 @@ export default function PaymentForm() {
             fullWidth
             autoComplete="cc-number"
             variant="standard"
+            value={cardNumber}
+            onChange={handleCardNumberChange}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -40,6 +85,8 @@ export default function PaymentForm() {
             fullWidth
             autoComplete="cc-exp"
             variant="standard"
+            value={expDate}
+            onChange={handleExpDateChange}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -51,13 +98,25 @@ export default function PaymentForm() {
             fullWidth
             autoComplete="cc-csc"
             variant="standard"
+            value={cvv}
+            onChange={handleCvvChange}
           />
         </Grid>
         <Grid item xs={12}>
-          <FormControlLabel
-            control={<Checkbox color="secondary" name="saveCard" value="yes" />}
-            label="Remember credit card details for next time"
-          />
+          <TextField
+            required
+            id="cardType"
+            select
+            label="Card type"
+            fullWidth
+            variant="standard"
+            value={cardType}
+            onChange={handleCardTypeChange}
+          >
+            <option value="visa">Visa</option>
+            <option value="mastercard">Mastercard</option>
+            <option value="amex">American Express</option>
+          </TextField>
         </Grid>
       </Grid>
     </React.Fragment>
