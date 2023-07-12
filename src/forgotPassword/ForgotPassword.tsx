@@ -49,6 +49,9 @@ function ForgotPassword() {
           <Typography component="h1" variant="h5">
             Forgot Password
           </Typography>
+   
+            <p>enter your email here and a password reset email will be sent to you.</p>
+
           <Box component="form" noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"

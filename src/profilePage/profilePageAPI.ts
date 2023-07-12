@@ -4,7 +4,6 @@ const MY_SERVER = "http://127.0.0.1:8000/";
 
 export function editProfile(userChanges: any) {
     const token = sessionStorage.getItem('token') || '';
-    console.log(userChanges,token);
     
     return axios.patch(`${MY_SERVER}editprofile`, {userChanges,Authorization: `Bearer ${token}`})
   
@@ -12,7 +11,6 @@ export function editProfile(userChanges: any) {
 
 export async function getCustomerData() {
     const token = sessionStorage.getItem('token') || '';
-    console.log(token)
     const res = await axios.post(`${MY_SERVER}getcustomer`, {
        
             Authorization: `Bearer ${token}`

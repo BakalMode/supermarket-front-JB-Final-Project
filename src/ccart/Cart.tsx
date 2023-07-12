@@ -18,19 +18,17 @@ export function Cart({ products, quantities }: CartProps) {
   const cartItems = useAppSelector(selectCartItems);
   const cartTotal = useAppSelector(selectCartTotal);
   const dispatch = useDispatch();
-
+  
   useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cartItems));
+    const updatedCartItems = cartItems.map((item) => ({
+      ...item,
+      product: {
+        ...item.product,
+        price: parseFloat((item.product.price * item.quantity).toFixed(3)),
+      },
+    }));
+    localStorage.setItem('cart', JSON.stringify(updatedCartItems));
   }, [cartItems]);
-
-  // Calculate the total price of all items in the cart
-  const totalPrice = cartItems.reduce((total, item) => {
-    const product = products.find(p => p.id === item.product.id);
-    if (product) {
-      return total + product.price *item.quantity;
-    }
-    return total;
-  }, 0);
 
   const handleIncrement = (itemId: number) => {
     dispatch(incrementQuantity(itemId));
@@ -43,6 +41,29 @@ export function Cart({ products, quantities }: CartProps) {
   const handleRemove = (itemId: number) => {
     dispatch(removeFromCart(itemId));
   };
+
+  const handleCheckout = () => {
+    const storedCart = JSON.parse(localStorage.getItem('cart') || '[]');
+
+    if (storedCart.length === 0) {
+      alert('You must have items in your cart in order to checkout.');
+      return;
+    }
+    else{
+      window.location.href = 'http://localhost:3000/checkout'
+    }
+    // Proceed with the checkout logic
+    // ...
+  };
+
+  // Calculate the total price of all items in the cart
+  const totalPrice = cartItems.reduce((total, item) => {
+    const product = products.find(p => p.id === item.product.id);
+    if (product) {
+      return total + product.price * item.quantity;
+    }
+    return total;
+  }, 0);
 
   return (
     <div className="cart-wrapper">
@@ -93,11 +114,9 @@ export function Cart({ products, quantities }: CartProps) {
       </div>
       <div className="cart-footer">
         <h3 style={{ margin: '0px', marginTop: '3px' }}>Total: ${totalPrice.toFixed(2)}</h3>
-        <button className="cart-button">
-          <Link to="checkout" style={{ textDecoration: 'none', color: 'white' }}>
+        <button className="cart-button" onClick={handleCheckout}>
             Checkout
             <ShoppingCartCheckoutIcon style={{ marginLeft: '5px' }} />
-          </Link>
         </button>
       </div>
     </div>
