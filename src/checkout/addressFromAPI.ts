@@ -7,7 +7,6 @@ const MY_SERVER = "http://127.0.0.1:8000/";
 
 export async function getCustomerDataForCheckout() {
   const token = sessionStorage.getItem('token') || '';
-  console.log(token)
   const res = await axios.post(`${MY_SERVER}getcustomer`, {
      
           Authorization: `Bearer ${token}`

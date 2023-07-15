@@ -28,7 +28,6 @@ const ProfilePage = () => {
       try {
         const response = await dispatch(getCustomerDataAsync());
         const customerData = response.payload; // Access the payload property
-        console.log(customerData);
   
         // Set the customer data as initial values for input fields
         setAddresslabel(customerData.address);
@@ -37,12 +36,10 @@ const ProfilePage = () => {
         setLastNamelabel(customerData.lastName);
         setEmaillabel(customerData.email);
         setSelectedImagelabel("http://127.0.0.1:8000/" + customerData.image);
-        console.log(customerData.image)
   
         // Set the selectedImage state
         if (customerData.image) {
           setSelectedImage("http://127.0.0.1:8000/" + customerData.image);
-          console.log(selectedImage)
         }
       } catch (error) {
         console.log('Error fetching customer data:', error);

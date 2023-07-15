@@ -19,7 +19,6 @@ export const getCustomerDataAsync = createAsyncThunk(
   'profile/fetchCustomer',
   async () => {
     const response = await getCustomerDataForCheckout();
-    console.log(response.data);
     return response.data;
   }
 );

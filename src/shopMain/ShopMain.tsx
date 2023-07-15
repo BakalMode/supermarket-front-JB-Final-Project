@@ -46,17 +46,6 @@ export function ShopMain() {
     }
   }, []);
 
-  //   useEffect(() => {
-  //     if (refreshPage) {
-  //       // Perform necessary actions or fetch data
-  //       console.log('Refresh page');
-  //       // Additional code here to rerun the filtered product map
-  //     }
-  //   }, [refreshPage]);
-  //   // ...
-  // }
-
-
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     dispatch(filterProducts(event.target.value));
   };

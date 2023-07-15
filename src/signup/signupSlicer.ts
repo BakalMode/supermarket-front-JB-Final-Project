@@ -15,7 +15,6 @@ const initialState: CounterState = {
 export const registerAsync = createAsyncThunk(
   'signup/register',
   async (user: any) => {
-      console.log(user);
       const response = await register(user);
       return response.data;
   }

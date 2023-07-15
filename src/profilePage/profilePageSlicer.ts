@@ -23,7 +23,6 @@ export const getCustomerDataAsync = createAsyncThunk(
   'profile/fetchCustomer',
   async () => {
     const response = await getCustomerData();
-    console.log(response.data);
     return response.data;
   }
 );

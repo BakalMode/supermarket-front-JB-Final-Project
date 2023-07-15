@@ -50,7 +50,6 @@ export const cartSlice = createSlice({
         state.total = 0;
       }
       localStorage.setItem('cart', JSON.stringify(state.items));
-      localStorage.setItem('total', state.total.toString());
     },
     incrementQuantity: (state, action: PayloadAction<number>) => {
       const productId = action.payload;
@@ -64,7 +63,6 @@ export const cartSlice = createSlice({
         }
       }
       localStorage.setItem('cart', JSON.stringify(state.items));
-      localStorage.setItem('total', state.total.toString());
     },
     decrementQuantity: (state, action: PayloadAction<number>) => {
       const productId = action.payload;
@@ -78,7 +76,6 @@ export const cartSlice = createSlice({
         }
       }
       localStorage.setItem('cart', JSON.stringify(state.items));
-      localStorage.setItem('total', state.total.toString());
     },
     removeFromCart: (state, action: PayloadAction<number>) => {
       const productId = action.payload;
@@ -91,7 +88,6 @@ export const cartSlice = createSlice({
         }
       }
       localStorage.setItem('cart', JSON.stringify(state.items));
-      localStorage.setItem('total', state.total.toString());
     },
   },
 });

@@ -21,7 +21,6 @@ export default function AddressForm() {
       try {
         const response = await dispatch(getCustomerDataAsync());
         const customerData = response.payload; // Access the payload property
-        console.log(customerData);
 
         // Set the customer data as initial values for input fields
         setAddress(customerData.address);

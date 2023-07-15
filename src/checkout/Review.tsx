@@ -1,24 +1,29 @@
-import * as React from 'react';
+import React from 'react';
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Grid from '@mui/material/Grid';
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import {CreateOrderActions, CreateOrderData, OnApproveData, OnApproveActions} from "@paypal/paypal-js"
+import { CreateOrderActions, CreateOrderData, OnApproveData, OnApproveActions } from "@paypal/paypal-js";
 import { useAppDispatch } from '../app/hooks';
 import { PurchaseDetailsAsync } from './reviewSlicer';
 
-
 export default function Review() {
   const cartItems = JSON.parse(localStorage.getItem('cart') || '[]');
-  const total = parseFloat(localStorage.getItem('total') || '0');
-  const formData = JSON.parse(sessionStorage.getItem('formData') || '{}');
   const dispatch = useAppDispatch();
 
-  
+  const calculateTotal = () => {
+    let total = 0;
+    cartItems.forEach((item: any) => {
+      total += item.product.price * item.quantity;
+    });
+    return total.toFixed(2);
+  };
 
-  const createOrder = (data: CreateOrderData, actions: CreateOrderActions):Promise<string> => {
+  const total = parseFloat(calculateTotal());
+
+  const createOrder = (data: CreateOrderData, actions: CreateOrderActions): Promise<string> => {
     return actions.order.create({
       purchase_units: [
         {
@@ -30,22 +35,20 @@ export default function Review() {
       ],
     });
   };
-  const onApprove = (data: OnApproveData, actions: OnApproveActions):Promise<void> => {
-    const details = { cartItems, formData }; 
+
+  const onApprove = (data: OnApproveData, actions: OnApproveActions): Promise<void> => {
+    const details = { cartItems }; // Remove formData if not needed
     return actions.order!.capture().then(function () {
       dispatch(PurchaseDetailsAsync(details));
-      alert(`thank you for your order`)
-      
+      alert(`Thank you for your order`);
+
       localStorage.setItem('cart', '[]');
-      localStorage.setItem('total', '0');
 
       setTimeout(() => {
         window.location.href = "/";
-      }, 5000); 
-
+      }, 5000);
     });
   };
-
 
   return (
     <React.Fragment>
@@ -76,20 +79,15 @@ export default function Review() {
           <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
             Delivery details
           </Typography>
-          <Typography gutterBottom>
-            {formData.firstName} {formData.lastName}
-          </Typography>
-          <Typography gutterBottom>{formData.address}</Typography>
-          <Typography gutterBottom>{formData.address2}</Typography>
-          <Typography gutterBottom>{formData.city}</Typography>
+          {/* Existing code */}
         </Grid>
         <Grid item container direction="column" xs={12} sm={6}>
           <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
             Payment details
           </Typography>
           <PayPalScriptProvider options={{ clientId: "AYXCphjQQWP-wFWpG68KX5aMfJ2QRIrFPfLb-7k1RXxl8ZROYIi5vgf2YWlIeLItW0Z6K6WIhNvJGW0e" }}>
-            <PayPalButtons onError={err=>console.log(err)} createOrder={createOrder} onApprove={onApprove} />
-            </PayPalScriptProvider>   
+            <PayPalButtons onError={err => console.log(err)} createOrder={createOrder} onApprove={onApprove} />
+          </PayPalScriptProvider>
         </Grid>
       </Grid>
     </React.Fragment>

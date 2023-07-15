@@ -25,8 +25,6 @@ function ResetPassword() {
 
   const handleResetPassword = () => {
     if (password === confirmPassword) {
-      console.log('Password:', password);
-      console.log('Confirm Password:', confirmPassword);
       dispatch(resetPasswordAsync({ password, url: window.location.href }));
     } else {
       // Handle password mismatch error

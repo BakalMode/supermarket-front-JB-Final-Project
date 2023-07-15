@@ -32,12 +32,10 @@ export const forgotSlice = createSlice({
       emailjs
       .send('service_61aamdo', 'template_kldbqup', { email, token }, '6WEIaLhXlKJUU8HnK')
       .then((result) => {
-        console.log(result.text);
         // Additional code for displaying an alert to the user
         alert('Email sent successfully!');
       })
       .catch((error) => {
-        console.log(error.text);
         // Additional code for displaying an alert to the user
         alert('Failed to send email.');
       });

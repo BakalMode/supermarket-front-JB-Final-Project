@@ -16,7 +16,6 @@ const initialState: loginState = {
 export const loginAsync = createAsyncThunk(
   'signin/login',
   async (user: any) => {
-      console.log(user);
       const response = await login(user) as AxiosResponse<any>; // Explicitly type response as AxiosResponse<any>
       return response.data;
   }

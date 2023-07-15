@@ -24,7 +24,6 @@ function ForgotPassword() {
 
 
   const handleSendEmail = () => {
-    console.log('Email:', email);
     dispatch(sendEmailAsync({email}))
   
   };

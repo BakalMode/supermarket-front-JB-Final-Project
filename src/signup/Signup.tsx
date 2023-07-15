@@ -83,16 +83,6 @@ function SignUp() {
       return;
     }
 
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-      firstname: data.get('firstname'),
-      lastname: data.get('lastname'),
-      city: data.get('city'),
-      address: data.get('address'),
-    });
-
     await dispatch(
       registerAsync({ firstname, lastname, password, email, city, address })
     );

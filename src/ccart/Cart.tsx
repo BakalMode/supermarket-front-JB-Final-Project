@@ -18,13 +18,20 @@ export function Cart({ products, quantities }: CartProps) {
   const cartItems = useAppSelector(selectCartItems);
   const cartTotal = useAppSelector(selectCartTotal);
   const dispatch = useDispatch();
-  
+
+  useEffect(() => {
+    const storedCartItems = localStorage.getItem('cart');
+    if (storedCartItems) {
+      const parsedCartItems = JSON.parse(storedCartItems);
+      dispatch({ type: 'cart/setCartItems', payload: parsedCartItems });
+    }
+  }, []);
+
   useEffect(() => {
     const updatedCartItems = cartItems.map((item) => ({
       ...item,
       product: {
         ...item.product,
-        price: parseFloat((item.product.price * item.quantity).toFixed(3)),
       },
     }));
     localStorage.setItem('cart', JSON.stringify(updatedCartItems));
@@ -48,9 +55,8 @@ export function Cart({ products, quantities }: CartProps) {
     if (storedCart.length === 0) {
       alert('You must have items in your cart in order to checkout.');
       return;
-    }
-    else{
-      window.location.href = 'http://localhost:3000/checkout'
+    } else {
+      window.location.href = 'http://localhost:3000/checkout';
     }
     // Proceed with the checkout logic
     // ...
@@ -58,7 +64,7 @@ export function Cart({ products, quantities }: CartProps) {
 
   // Calculate the total price of all items in the cart
   const totalPrice = cartItems.reduce((total, item) => {
-    const product = products.find(p => p.id === item.product.id);
+    const product = products.find((p) => p.id === item.product.id);
     if (product) {
       return total + product.price * item.quantity;
     }
@@ -88,7 +94,12 @@ export function Cart({ products, quantities }: CartProps) {
               {cartItems.map((item) => (
                 <div className="cart-item" key={item.product.id}>
                   <div className="cart-item-info">
-                    <img style={{ maxHeight: "77px" }} src={"http://127.0.0.1:8000" + item.product.image} alt="Product Image" className="product-image" />
+                    <img
+                      style={{ maxHeight: '77px' }}
+                      src={'http://127.0.0.1:8000' + item.product.image}
+                      alt="Product Image"
+                      className="product-image"
+                    />
                   </div>
 
                   <div className="cart-quantity-controls">
@@ -115,8 +126,8 @@ export function Cart({ products, quantities }: CartProps) {
       <div className="cart-footer">
         <h3 style={{ margin: '0px', marginTop: '3px' }}>Total: ${totalPrice.toFixed(2)}</h3>
         <button className="cart-button" onClick={handleCheckout}>
-            Checkout
-            <ShoppingCartCheckoutIcon style={{ marginLeft: '5px' }} />
+          Checkout
+          <ShoppingCartCheckoutIcon style={{ marginLeft: '5px' }} />
         </button>
       </div>
     </div>
