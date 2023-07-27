@@ -19,6 +19,15 @@ export function login(user: any) {
     );
   }
 
+export function purchasedCheck(idd: any) {
+  return new Promise<{ data: any }>((resolve, reject) =>
+    axios
+      .post(MY_SERVER + "purchasedbefore", { idd, Authorization: `Bearer ${token}` })
+      .then((response) => resolve({ data: response.data }))
+      .catch((error) => reject(error))
+  );
+}
+
 export function submitReview(review: any) {
   return new Promise<{ data: any }>((resolve) => {
     axios

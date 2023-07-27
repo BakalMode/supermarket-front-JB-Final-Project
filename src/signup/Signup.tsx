@@ -3,8 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -14,7 +12,6 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useState, useEffect } from 'react';
 import { registerAsync } from './signupSlicer';
-import { AsyncThunkAction } from '@reduxjs/toolkit';
 import { useAppDispatch } from '../app/hooks';
 
 function SignUp() {
@@ -50,25 +47,6 @@ function SignUp() {
     setAddress(event.target.value);
   };
 
-  const [emailInUse, setEmailInUse] = useState(false);
-
-  useEffect(() => {
-    const checkEmailStatus = async () => {
-      if (email) {
-        const response = await fetch('/emailcheckforregister', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ email }),
-        });
-        const data = await response.json();
-        setEmailInUse(data.exists);
-      }
-    };
-
-    checkEmailStatus();
-  }, [email]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => { // HANDLE SUBMIT ISNT WORKING WELL CAN SUBMIT WITHOUT FILLING ALL OF THE FILDS AND ALERTS DONT POP UP
     event.preventDefault();
@@ -78,10 +56,6 @@ function SignUp() {
       return;
     }
 
-    if (emailInUse) {
-      alert('Email is already in use');
-      return;
-    }
 
     await dispatch(
       registerAsync({ firstname, lastname, password, email, city, address })
@@ -163,8 +137,6 @@ function SignUp() {
                       name="email"
                       autoComplete="email"
                       onChange={handleEmailChange}
-                      error={emailInUse}
-                      helperText={emailInUse ? 'Email is already in use' : ''}
                     />
                   </Grid>
                   <Grid item xs={12}>

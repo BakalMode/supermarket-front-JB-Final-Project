@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AxiosResponse } from 'axios';
 import { RootState, AppThunk } from '../app/store';
-import { fetchCount } from '../ccart/cartAPI';
 import { login } from './singInAPI';
 export interface loginState {
   logged: boolean,

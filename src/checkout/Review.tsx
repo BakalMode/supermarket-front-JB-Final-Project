@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -7,23 +7,55 @@ import Grid from '@mui/material/Grid';
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { CreateOrderActions, CreateOrderData, OnApproveData, OnApproveActions } from "@paypal/paypal-js";
 import { useAppDispatch } from '../app/hooks';
-import { PurchaseDetailsAsync } from './reviewSlicer';
+import { GetTotalAsync, PurchaseDetailsAsync } from './reviewSlicer';
 
 export default function Review() {
   const cartItems = JSON.parse(localStorage.getItem('cart') || '[]');
   const dispatch = useAppDispatch();
+  const formData = JSON.parse(sessionStorage.getItem('formData') || '{}');
+  const [total, setTotal] = useState<number>(0);
 
-  const calculateTotal = () => {
-    let total = 0;
-    cartItems.forEach((item: any) => {
-      total += item.product.price * item.quantity;
-    });
-    return total.toFixed(2);
-  };
+  useEffect(() => {
+    const fetchTotal = async () => {
+      const action = await dispatch(GetTotalAsync());
+      const total = action.payload.total_cost; // Extract the total value from the payload
+      setTotal(total);
+    };
 
-  const total = parseFloat(calculateTotal());
+    // Check if the address and city fields are empty and redirect if necessary
+    const isAddressAndCityEmpty = formData.address.trim() === '' || formData.city.trim() === '';
+    if (isAddressAndCityEmpty) {
+      alert("Please fill address and city fields");
+      window.location.href = "/checkout";
+      return; // Exit the function early if redirecting
+    }
+
+    fetchTotal();
+  }, [dispatch, formData]);
 
   const createOrder = (data: CreateOrderData, actions: CreateOrderActions): Promise<string> => {
+    // Check if the total is zero or negative
+    if (total <= 0) {
+      // Refetch the total asynchronously to avoid any possible race conditions
+      return dispatch(GetTotalAsync()).then((action) => {
+        const newTotal = action.payload.total_cost;
+        if (newTotal <= 0) {
+          alert("Total cannot be zero or negative. Please try again later.");
+          throw new Error("Invalid total");
+        }
+        return actions.order.create({
+          purchase_units: [
+            {
+              amount: {
+                currency_code: "USD",
+                value: newTotal.toFixed(2),
+              },
+            },
+          ],
+        });
+      });
+    }
+
     return actions.order.create({
       purchase_units: [
         {
@@ -37,16 +69,14 @@ export default function Review() {
   };
 
   const onApprove = (data: OnApproveData, actions: OnApproveActions): Promise<void> => {
-    const details = { cartItems }; // Remove formData if not needed
+    const details = { cartItems, formData };
     return actions.order!.capture().then(function () {
       dispatch(PurchaseDetailsAsync(details));
       alert(`Thank you for your order`);
-
       localStorage.setItem('cart', '[]');
-
       setTimeout(() => {
         window.location.href = "/";
-      }, 5000);
+      }, 3000);
     });
   };
 
@@ -79,7 +109,12 @@ export default function Review() {
           <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
             Delivery details
           </Typography>
-          {/* Existing code */}
+          <Typography gutterBottom>
+            Full name: {formData.firstName} {formData.lastName}
+          </Typography>
+          <Typography gutterBottom>Address: {formData.address}</Typography>
+          <Typography gutterBottom>Second address: {formData.address2}</Typography>
+          <Typography gutterBottom>City: {formData.city}</Typography>
         </Grid>
         <Grid item container direction="column" xs={12} sm={6}>
           <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>

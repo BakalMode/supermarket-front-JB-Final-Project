@@ -6,9 +6,8 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
-import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-import { Storefront, Person, ExitToApp, Margin } from '@mui/icons-material';
+import { Storefront} from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectLogged } from '../signin/signInSlicer';
@@ -17,7 +16,6 @@ import { filterProducts, filterProductsByCategory } from '../shopMain/shopMainSl
 import FreshBuyLogo from '../images/FreshBuyLogo.jpeg'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 

@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import emailjs from '@emailjs/browser';
-import { fetchProductFields, submitReview } from './moreInfoPageAPI';
+import { fetchProductFields, purchasedCheck, submitReview } from './moreInfoPageAPI';
 
 
 export interface ProfileState {
@@ -25,6 +24,14 @@ export const fetchProductFieldsAsync = createAsyncThunk(
     'moreinfo/submit',
     async (review: any) => {
       const response = await submitReview(review);
+      return response.data;
+    }
+  );
+
+  export const purchasedBeforeAsync = createAsyncThunk(
+    'moreinfo/before',
+    async (idd:any) => {
+      const response = await purchasedCheck(idd);
       return response.data;
     }
   );

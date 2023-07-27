@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useAppSelector, useAppDispatch } from '../app/hooks';
-import { Avatar, Link, Card, CardContent, TextField, Button } from '@mui/material';
+import { Card, CardContent, TextField, Button } from '@mui/material';
 import { useParams } from 'react-router-dom';
-import { fetchProductFields } from './moreInfoPageAPI';
-import { fetchProductFieldsAsync, submitReviewAsync } from './moreInfoSlicer';
+import { fetchProductFieldsAsync, purchasedBeforeAsync, submitReviewAsync } from './moreInfoSlicer';
 
 export function MoreInfoPage() {
   const { productId } = useParams();
@@ -16,6 +15,7 @@ export function MoreInfoPage() {
   const [season, setSeason] = useState("");
   const [image, setImage] = useState("");
   const [reviewText, setReviewText] = useState("");
+  const [purchasedBefore, setPurchasedBefore] = useState(false); // New state for purchasedBefore
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,6 +30,21 @@ export function MoreInfoPage() {
         setReviews(parsedReviews);
         setSeason(productFields.season);
         setImage(productFields.image);
+
+  
+        const purchasedPayload = await dispatch(purchasedBeforeAsync(productId));
+        const purchased = purchasedPayload.payload.data
+
+
+        if (typeof purchased === 'boolean') {
+          setPurchasedBefore(purchased);
+        } else {
+          // Handle the error here, you can throw an error or handle it in any other way
+          // For example, you can log the error or display an error message to the user
+          console.error('Error: The value of "purchased" is not a boolean.');
+        }
+        
+
       }
     };
 
@@ -37,7 +52,6 @@ export function MoreInfoPage() {
   }, [dispatch, productId]);
 
   const handleReviewSubmit = () => {
-
     dispatch(submitReviewAsync({ productId, reviewText }));
     setReviewText(""); // Clear the review text input
   };
@@ -66,23 +80,25 @@ export function MoreInfoPage() {
               <p>No reviews available.</p>
             )}
           </div>
-          <div>
-            <h2>Write a Review</h2>
-            <form>
-              <TextField
-                label="Your Review"
-                multiline
-                rows={4}
-                value={reviewText}
-                onChange={(e) => setReviewText(e.target.value)}
-                variant="outlined"
-                fullWidth
-              />
-              <Button type="button" variant="contained" color="primary" fullWidth onClick={handleReviewSubmit}>
-                Submit Review
-              </Button>
-            </form>
-          </div>
+          {purchasedBefore && ( // Render the following section only if purchasedBefore is true
+            <div>
+              <h2>Write a Review</h2>
+              <form>
+                <TextField
+                  label="Your Review"
+                  multiline
+                  rows={4}
+                  value={reviewText}
+                  onChange={(e) => setReviewText(e.target.value)}
+                  variant="outlined"
+                  fullWidth
+                />
+                <Button type="button" variant="contained" color="primary" fullWidth onClick={handleReviewSubmit}>
+                  Submit Review
+                </Button>
+              </form>
+            </div>
+          )}
         </CardContent>
       </Card>
     </div>

@@ -1,5 +1,4 @@
 import axios from 'axios';
-import {Product} from './shopMainSlicer'
 
 let MY_SERVER = "http://127.0.0.1:8000/products"
 

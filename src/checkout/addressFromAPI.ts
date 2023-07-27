@@ -1,4 +1,3 @@
-import { createAsyncThunk } from "@reduxjs/toolkit/dist/createAsyncThunk";
 import axios from "axios";
 
 

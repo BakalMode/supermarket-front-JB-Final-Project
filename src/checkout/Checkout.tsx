@@ -11,18 +11,26 @@ import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { createTheme, styled, ThemeProvider } from '@mui/material/styles';
 import AddressForm from './AddressFrom';
 import PaymentForm from './PaymentForm';
 import Review from './Review';
+import FreshBuyLogo from '../images/FreshBuyLogo.jpeg'
 
+
+
+const LogoImage = styled('img')({
+
+  marginBottom: "-9px"
+
+});
 
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      <Link color="inherit" href="/">
+        FreshBuy
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -71,11 +79,31 @@ export default function Checkout() {
             borderBottom: (t) => `1px solid ${t.palette.divider}`,
           }}
         >
-          <Toolbar>
+          <Toolbar sx={{ backgroundColor: "#5BA448", display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <Typography variant="h6" color="inherit" noWrap>
-              Company name
+              <LogoImage sx={{ minHeight: '80px', maxHeight: '90px', minWidth: '200px' }} src={FreshBuyLogo} alt="FreshBuy Logo" />
             </Typography>
+            <button
+              className="button"
+              style={{
+                backgroundColor: 'white',
+                color: 'black',
+                border: 'none',
+                padding: '10px 20px',
+                borderRadius: '4px',
+                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                transition: 'background-color 0.3s',
+              }}
+            >
+              <Link
+                href="/"
+                style={{ textDecoration: 'none', color: 'black' }}
+              >
+                Back to main page
+              </Link>
+            </button>
           </Toolbar>
+
         </AppBar>
         <Container component="main" maxWidth="sm" sx={{ mb: 4, background: "#d4f1c5" }}>
           <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
@@ -122,7 +150,7 @@ export default function Checkout() {
               </React.Fragment>
             )}
           </Paper>
-          <Copyright />
+          <Copyright/>
         </Container>
       </ThemeProvider>
     </div>

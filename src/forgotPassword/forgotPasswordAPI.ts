@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { log } from 'console';
 
 let EMAIL_CATCHER_SERVER = "http://127.0.0.1:1025/"
 let MY_SERVER = "http://127.0.0.1:8000/"

@@ -4,8 +4,7 @@ import { PhotoCamera } from '@mui/icons-material';
 import './profilePage.css'; // Import the CSS file for styling
 import { editProfileAsync, getCustomerDataAsync } from './profilePageSlicer';
 import { useAppDispatch } from '../app/hooks';
-import { getCustomerData } from './profilePageAPI';
-import { log } from 'console';
+
 
 const ProfilePage = () => {
   const [addresslabel, setAddresslabel] = useState('');

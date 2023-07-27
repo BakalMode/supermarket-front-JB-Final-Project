@@ -12,3 +12,21 @@ export function PurchaseDetails(data: any) {
 
 }
 
+
+export function GetTotal() {
+  const cart: any = JSON.parse(localStorage.getItem('cart') || '[]');
+
+  return axios.post(`${MY_SERVER}calctotal`, cart)
+    .then(response => {
+      // Handle the response here if needed
+      return response;
+    })
+    .catch(error => {
+      // Handle errors here if needed
+      console.error(error);
+      return null; // or any default value
+    });
+}
+
+
+

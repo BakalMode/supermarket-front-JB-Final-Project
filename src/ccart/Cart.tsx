@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
-import { Link } from 'react-router-dom';
 import { useAppSelector } from '../app/hooks';
 import { decrementQuantity, incrementQuantity, removeFromCart, selectCartItems, selectCartTotal } from './cartSlicer';
 import { Product } from '../shopMain/shopMainSlicer';
