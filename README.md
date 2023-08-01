@@ -33,7 +33,7 @@ you can do that here: https://github.com/BakalMode/supermarket-back-JB-Final-Pro
 
 |             Items Details Page                  |                Customer Profile Page               |                    Categories and Search-bar                     |
 | :------------------------------------------------: | :------------------------------------------------: | :------------------------------------------------: |
-| ![](readmeImages/moreinfopage.jpg) | ![](readmeImages/fixedProfilePage.jpg) | ![](readmeImages/caregires_and _searchbar.jpg) |
+| ![](readmeImages/moreinfopage.jpg)              | ![](readmeImages/fixedProfilePage.jpg)             | ![](readmeImages/caregiresAndSearchbar.jpg) |
 
 |                 Checkout (customer info)     |                   Checkout (order info)        |
 | :--------------------------------------------: | :--------------------------------------------: |
