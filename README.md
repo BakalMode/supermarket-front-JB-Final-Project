@@ -27,9 +27,9 @@ you can do that here: https://github.com/BakalMode/supermarket-back-JB-Final-Pro
 
 ## Screenshots
 
-|                     Ecommero Menu                     |                  Ecommero Categories                  |                    Ecommero Items                     |
+|                     Signin Page                    |                  Signup Page                          |                    ForgotPassword Page                |
 | :---------------------------------------------------: | :---------------------------------------------------: | :---------------------------------------------------: |
-| ![](./contributingGuides/screenshots/customer11.jpeg) | ![](./contributingGuides/screenshots/customer22.jpeg) | ![](./contributingGuides/screenshots/customer33.jpeg) |
+| ![](readmeImages/signinPage.jpg)                   | ![](readmeImages/signupPage.jpg)                      | ![](readmeImages/forgotPasswordPage.jpg)              |
 
 |               Ecommero Items Details               |               Ecommero User Account                |                    Track Order                     |
 | :------------------------------------------------: | :------------------------------------------------: | :------------------------------------------------: |
