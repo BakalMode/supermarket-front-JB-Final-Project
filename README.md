@@ -55,7 +55,7 @@ run this commad to install all the packedges:
 run this commad to start the server:
 -      npm start                                                                                                                  
 
-if started correctly your terminal should have this prompt:                                                                                                                                       
+if started correctly your terminal should see this prompt:                                                                                                                                       
 <p>
   <img src="readmeImages/reactServerUpPrompt.jpg" width="300" alt="EnvCheck">
 </p>                                                                                                                                               
@@ -68,7 +68,7 @@ and change the MY_SERVER to the ip of your back-end server:
 
 ## Setting up services
 - Paypal Checkout                                   
- go to [Paypal Developer](https://developer.paypal.com/home) sign up and implement your clientId so the fake money will be wired to your account.
+ go to [Paypal Developer](https://developer.paypal.com/home) sign up and implement your clientId so the fake money will be wired to your account.       
  if you want to connect it to a real paypal account for real transactions go to [Paypal](https://www.paypal.com/il/home) create an account implement the clientId
  for changing the client id go here:                                                                                                                                                
 ![Paypal](readmeImages/paypalsettingup.jpg) 
