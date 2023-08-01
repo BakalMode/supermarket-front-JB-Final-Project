@@ -31,13 +31,13 @@ you can do that here: https://github.com/BakalMode/supermarket-back-JB-Final-Pro
 | :---------------------------------------------------: | :---------------------------------------------------: | :---------------------------------------------------: |
 | ![](readmeImages/signinPage.jpg)                   | ![](readmeImages/signupPage.jpg)                      | ![](readmeImages/forgotPasswordPage.jpg)              |
 
-|               Ecommero Items Details               |               Ecommero User Account                |                    Track Order                     |
+|             Items Details Page                  |                Customer Profile Page               |                    Categories and Search-bar                     |
 | :------------------------------------------------: | :------------------------------------------------: | :------------------------------------------------: |
-| ![](./contributingGuides/screenshots/rider11.jpeg) | ![](./contributingGuides/screenshots/rider22.jpeg) | ![](./contributingGuides/screenshots/rider33.jpeg) |
+| ![](readmeImages/moreinfopage.jpg) | ![](readmeImages/fixedProfilePage.jpg) | ![](readmeImages/caregires_and _searchbar.jpg) |
 
-|                 Stats Overview                 |                   User Table                   |                Products Editing                |
-| :--------------------------------------------: | :--------------------------------------------: | :--------------------------------------------: |
-| ![](./contributingGuides/screenshots/eco1.png) | ![](./contributingGuides/screenshots/eco2.png) | ![](./contributingGuides/screenshots/eco3.png) |
+|                 Checkout (customer info)     |                   Checkout (order info)        |
+| :--------------------------------------------: | :--------------------------------------------: |
+| ![](readmeImages/checkoutpro1.jpg)           | ![](readmeImages/checkoutpro2.jpg)             |
 
 
 
