@@ -8,7 +8,7 @@ you can do that here: https://github.com/BakalMode/supermarket-back-JB-Final-Pro
 ## What is included
 
 - A django admin panel for easy customazation:
- addind/removing products, removing accounts, creating more categories, and much more (at the backend link above)
+ adding/removing products, removing accounts, creating more categories, and much more (at the backend link above)
 
 - The FreshBuy app is your ultimate solution for effortless online shopping. Our user-friendly
  platform is designed with one soul purpose: to make your life easier.
