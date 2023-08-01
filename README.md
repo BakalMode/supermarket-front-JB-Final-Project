@@ -55,8 +55,10 @@ run this commad to install all the packedges:
 run this commad to start the server:
 -      npm start                                                                                                                  
 
-if started correctly your terminal should have this prompt:                                                                              
-![EnvCheck](readmeImages/reactServerUpPrompt.jpg)
+if started correctly your terminal should have this prompt:                                                                                                                                       
+<p>
+  <img src="readmeImages/reactServerUpPrompt.jpg" width="300" alt="EnvCheck">
+</p>                                                                                                                                               
 
 and change the MY_SERVER to the ip of your back-end server:
 -      MY_SERVER = "https//:yourserver.com:ddd"                                                                                                
