@@ -27,20 +27,25 @@ you can do that here: https://github.com/BakalMode/supermarket-back-JB-Final-Pro
 
 ## Screenshots
 
-|                     Signin Page                    |                  Signup Page                          |                    ForgotPassword Page                |
-| :---------------------------------------------------: | :---------------------------------------------------: | :---------------------------------------------------: |
-| ![](readmeImages/signinPage.jpg)                   | ![](readmeImages/signupPage.jpg)                      | ![](readmeImages/forgotPasswordPage.jpg)              |
+|                     Signin Page                       |                  Signup Page                          |
+| :---------------------------------------------------: | :---------------------------------------------------: |
+| ![](readmeImages/signinPage.jpg)                      | ![](readmeImages/signupPage.jpg)                      |
 
-|             Items Details Page                  |                Customer Profile Page               |                    Categories and Search-bar                     |
-| :------------------------------------------------: | :------------------------------------------------: | :------------------------------------------------: |
-| ![](readmeImages/moreinfopage.jpg)              | ![](readmeImages/fixedProfilePage.jpg)             | ![](readmeImages/caregiresAndSearchbar.jpg) |
+|             Items Details Page                     |                Customer Profile Page               |
+| :------------------------------------------------: | :------------------------------------------------: | 
+| ![](readmeImages/moreinfopage.jpg)                 | ![](readmeImages/fixedProfilePage.jpg)             | 
 
-|                 Checkout (customer info)     |                   Checkout (order info)        |
-| :--------------------------------------------: | :--------------------------------------------: |
-| ![](readmeImages/checkoutpro1.jpg)           | ![](readmeImages/checkoutpro2.jpg)             |
+|                 Checkout (customer info)       |                   Checkout (order info)          |
+| :--------------------------------------------: | :--------------------------------------------:   |
+| ![](readmeImages/checkoutpro1.jpg)             | ![](readmeImages/checkoutpro2.jpg)               |
 
+|                    Categories and Search-bar          |                     Email for reseting password         |  
+| :------------------------------------------------:    | :------------------------------------------------:      |
+| ![](readmeImages/caregiresAndSearchbar.jpg)           |![](readmeImages/forgotpasswordMail.jpg)                 |
 
-
+|                      Admin panel                      | 
+| :------------------------------------------------:    |
+|![](readmeImages/adminPanel.jpg)                       |
 
 ## Setting up instructaions: (without using docker)
                                                                                           
