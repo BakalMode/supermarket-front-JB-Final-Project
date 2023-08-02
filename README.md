@@ -76,7 +76,7 @@ and change the MY_SERVER to the ip of your back-end server:
 - EmailLS       
  when runing the project if you use my EmailJS keys the forgot password feature should in theory work just fine but if you want to further customize it to your likings you can!        
  go to [EmailJS](https://www.emailjs.com/) sign up after that watch [this video](https://www.youtube.com/watch?v=dgcYOm8n8ME&ab_channel=CodewithVoran) explaining how to use EmailJS        
- afterwards if you saw the video just go to forgotPasswordSlicer.ts and change the keys:
+ afterwards just go to forgotPasswordSlicer.ts and change the keys:
  ![EmailJS](readmeImages/emailJSexplain.jpg) 
 
 
