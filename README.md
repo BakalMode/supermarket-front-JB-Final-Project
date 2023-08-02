@@ -49,7 +49,7 @@ you can do that here: https://github.com/BakalMode/supermarket-back-JB-Final-Pro
 
 ## Setting up instructaions (without using docker)
                                                                                           
-run this commad to install all the packedges:
+run this commad to install all the packages:
 -      npm install
 
 run this commad to start the server:
