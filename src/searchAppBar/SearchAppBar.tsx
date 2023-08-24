@@ -18,6 +18,8 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import {DJANGO_APP_API_URL} from '../consts'
+
 
 
 const LogoImage = styled('img')({
@@ -107,7 +109,7 @@ export default function SearchAppBar() {
   };
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/menu')
+    axios.get(DJANGO_APP_API_URL + "menu")
       .then(response => {
         setCategories(response.data);
       })

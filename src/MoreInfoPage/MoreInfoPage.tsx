@@ -65,7 +65,7 @@ export function MoreInfoPage() {
             <h1 style={{ textAlign: 'center' }}>{name}</h1>
             <p><strong>Category:</strong> {category}</p>
             <p><strong>Description:</strong> {description}</p>
-            <p><strong>Price:</strong> {price}</p>
+            <p><strong>Price:</strong> ${price}</p>
             <p><strong>Season:</strong> {season}</p>
           </div>
           <div>
