@@ -2,7 +2,6 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import cartReducer,{ cartSlice } from '../ccart/cartSlicer';
 import addressFromReducer from '../checkout/addressFromSlicer';
 import reviewFormReducer,{ reviewFormSlice } from '../checkout/reviewSlicer';
-import navbarReducer, { navbarSlice } from '../features/navbar/navbarSlicer';
 import forgotPasswordReducer from '../forgotPassword/forgotPasswordSlicer';
 import moreInfoReducer from '../MoreInfoPage/moreInfoSlicer';
 import profilePageReducer from '../profilePage/profilePageSlicer';
@@ -13,7 +12,6 @@ import signupReducer from '../signup/signupSlicer';
 
 export const store = configureStore({
   reducer: {
-    navbar: navbarReducer,
     cart: cartReducer,
     shopMain: shopMainReducer,
     signin:signInReducer,
