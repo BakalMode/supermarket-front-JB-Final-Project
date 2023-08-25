@@ -94,3 +94,4 @@ and change the MY_SERVER to the ip of your back-end server:
 - [Paypal-Checkout](https://developer.paypal.com/home)
 - [React-Router](https://reactrouter.com/en/main)
 
+
