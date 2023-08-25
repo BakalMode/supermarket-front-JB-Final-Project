@@ -6,6 +6,7 @@ import './shopMain.css'; // Import the CSS file
 import { fetchProductsAsync, filterProducts, selectProducts } from './shopMainSlicer';
 import { addToCart } from '../ccart/cartSlicer';
 import { Link } from '@mui/material';
+import {DJANGO_APP_API_URL} from '../consts'
 
 
 
@@ -111,7 +112,7 @@ export function ShopMain() {
                 key={product.id}
                 style={{ margin: '5px', flex: '0 0 250px', textAlign: 'center', }}
               >
-                <img src={"http://127.0.0.1:8000" + product.image} alt="Product Image" className="product-image" />
+                <img src={DJANGO_APP_API_URL + product.image} alt="Product Image" className="product-image" />
                 <div className="product-description">
                   <p className="product-name">{product.name}</p>
                   <p className="product-price">${product.price}</p>

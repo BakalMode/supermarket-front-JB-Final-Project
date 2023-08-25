@@ -3,7 +3,7 @@ import {DJANGO_APP_API_URL} from '../consts'
 
 export function register(user: any) {
     return new Promise<{ data: any }>((resolve) =>
-        axios.post(DJANGO_APP_API_URL + "register", user)
+        axios.post(DJANGO_APP_API_URL + "/register", user)
             .then(res => resolve({ data: res.data }))
             .catch(error => {
                 if (error.response && error.response.status === 401) {

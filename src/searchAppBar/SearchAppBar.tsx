@@ -109,7 +109,7 @@ export default function SearchAppBar() {
   };
 
   useEffect(() => {
-    axios.get(DJANGO_APP_API_URL + "menu")
+    axios.get(DJANGO_APP_API_URL + "/menu")
       .then(response => {
         setCategories(response.data);
       })

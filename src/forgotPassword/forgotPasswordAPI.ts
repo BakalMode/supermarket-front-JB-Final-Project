@@ -14,7 +14,7 @@ export function sendEmail(email: any) {
 export function getCustomersPassword(email: any) {
     return new Promise<{ data: any }>((resolve, reject) =>
         axios
-            .post(DJANGO_APP_API_URL + "forgotpassword", email)  // Use the environment variable here
+            .post(DJANGO_APP_API_URL + "/forgotpassword", email)  // Use the environment variable here
             .then((res) => resolve({ data: res.data }))
             .catch((error) => {
                 alert("This email is not linked with any account.");
