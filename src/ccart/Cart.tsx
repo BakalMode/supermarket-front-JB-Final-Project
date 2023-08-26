@@ -7,6 +7,9 @@ import { decrementQuantity, incrementQuantity, removeFromCart, selectCartItems, 
 import { Product } from '../shopMain/shopMainSlicer';
 import './cartItem.css';
 import './cart.css';
+import {DJANGO_APP_API_URL,REACT_APP_URL} from '../consts'
+
+
 
 interface CartProps {
   products: Product[];
@@ -55,7 +58,7 @@ export function Cart({ products, quantities }: CartProps) {
       alert('You must have items in your cart in order to checkout.');
       return;
     } else {
-      window.location.href = 'http://localhost:3000/checkout';
+      window.location.href = REACT_APP_URL + '/checkout';
     }
     // Proceed with the checkout logic
     // ...
@@ -95,7 +98,7 @@ export function Cart({ products, quantities }: CartProps) {
                   <div className="cart-item-info">
                     <img
                       style={{ maxHeight: '77px' }}
-                      src={'http://127.0.0.1:8000' + item.product.image}
+                      src={DJANGO_APP_API_URL + item.product.image}
                       alt="Product Image"
                       className="product-image"
                     />

@@ -21,7 +21,6 @@ import MenuItem from '@mui/material/MenuItem';
 import {DJANGO_APP_API_URL} from '../consts'
 
 
-
 const LogoImage = styled('img')({
   maxHeight: '20%',
   maxWidth: '25%',
