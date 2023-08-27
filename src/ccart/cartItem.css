@@ -1,0 +1,38 @@
+.cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+  }
+  
+  .cart-item-info {
+    flex-grow: 1;
+  }
+  
+  .cart-item-name {
+    font-weight: bold;
+  }
+  
+  .cart-tem-quantity {
+    color: #888;
+  }
+  
+  .cart-quantity-controls {
+    display: flex;
+    gap: 5px;
+  }
+  
+  .cart-minus-btn,
+  .cart-plus-btn,
+  .cart-delete-btn {
+    padding: 5px 10px;
+    background-color: #eee;
+    border: none;
+    cursor: pointer;
+  }
+
+
+  
+  /* Add additional styles as needed */
+  
